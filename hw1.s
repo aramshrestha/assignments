@@ -10,7 +10,6 @@ main:
   MOV R8, R0                  @move return value R0 to argument register R2
   
   BL printf_operator          @branch to _prompt procedure with return
-  BL store_operator           @branch to _scanf procedure with return
   MOV R3, R0                  @move return value R0 to argument register R2
   
   MOV R1, R6                  @move value to argument register R1  
