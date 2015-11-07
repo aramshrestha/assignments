@@ -2,15 +2,15 @@
 .func main
 
 main:
-  BL _prompt                  @branch to _prompt procedure with return
+  BL _prompt_integer          @branch to _prompt_integer procedure with return
   BL _scanf                   @branch to _scanf procedure with return
   MOV R6, R0                  @move return value R0 to argument register R1
   
-  BL _prompt                  @branch to _getchar procedure with return
+  BL _prompt_integer          @branch to _prompt_integer procedure with return
   BL _scanf                   @branch to scanf_procedure with return
   MOV R8, R0                  @move return value R0 to argument register R2
   
-  BL printf_operator          @branch to _prompt procedure with return
+  BL _prompt_operator                  @branch to _prompt procedure with return
   BL _getchar
   MOV R3, R0                  @move return value R0 to argument register R2
   
@@ -19,11 +19,11 @@ main:
   
   BL _compare                 @branch to _compare with return              
   MOV R1, R0                  @move return value R0 to argument register R1      
-  BL printf_statement            @branch to printf_statement with return
+  BL printf_statement         @branch to printf_statement with return
   B main                      @branch to main procedure for loop
   
- @_prompt procedure prompts the user with print statement to input integer
- _prompt:               
+ @_prompt_integer procedure prompts the user with print statement to input integer
+ _prompt_integer:               
   MOV R7, #4                  @write syscall, 4            
   MOV R0, #1                  @output stream to monitor, 1
   MOV R2, #51                 @length of print string
@@ -85,12 +85,12 @@ _getchar:
   AND R0, #0xFF               @mask out all but the lowest 8 bits      
   MOV PC, LR                  @return          
 
-@_prompt procedure prompts with user with print statement to input character for operation   
-_prompt:
+@_prompt_operator procedure prompts with user with print statement to input character for operation   
+_prompt_operator:
   MOV R7, #4                  @write syscall, 4                
   MOV R0, #1                  @output stream to monitor, 1
   MOV R2, #100                @length of print string      
-  LDR R1, =prompt_str         @string at label prompt_str          
+  LDR R1, =printf_operator    @string at label printf_operator          
   SWI 0                       @execute syscall        
   MOV PC, LR                  @return                        
     
@@ -183,6 +183,6 @@ _reg_dump:
 debug_str:              .asciz "R%-2d   0x%08X  %011d \n"
 operation_type:         .asciz    " "
 scanf_statement:        .asciz    "%d"
-prompt_str:             .ascii    "Please insert an integer and press Enter:"
+prompt_statement:             .ascii    "Please insert an integer and press Enter:"
 printf_statement:       .asciz    "The result of the operation is: %d\n"
 printf_operator:        .asciz    "Insert the type of operation '+' for addition, '-' for subtraction, '*' for multiplication, 'M' for Maximum:"
