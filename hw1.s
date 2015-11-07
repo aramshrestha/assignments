@@ -2,14 +2,16 @@
 .func main
 
 main:
-  BL _prompt                  @branch to prompt procedure with return
+  BL _prompt                  @branch to _prompt procedure with return
   BL _scanf                   @branch to _scanf procedure with return
   MOV R6, R0                  @move return value R0 to argument register R1
-  BL _getchar                 @branch to _getchar procedure with return
+  
+  BL _prompt                  @branch to _getchar procedure with return
   BL _scanf                   @branch to scanf_procedure with return
   MOV R8, R0                  @move return value R0 to argument register R2
   
   BL printf_operator          @branch to _prompt procedure with return
+  BL _getchar
   MOV R3, R0                  @move return value R0 to argument register R2
   
   MOV R1, R6                  @move value to argument register R1  
@@ -17,8 +19,18 @@ main:
   
   BL _compare                 @branch to _compare with return              
   MOV R1, R0                  @move return value R0 to argument register R1      
-  BL printf_statement            @branch to printf_result with return
+  BL printf_statement            @branch to printf_statement with return
   B main                      @branch to main procedure for loop
+  
+ @_prompt procedure prompts the user with print statement to input integer
+ _prompt:               
+  MOV R7, #4                  @write syscall, 4            
+  MOV R0, #1                  @output stream to monitor, 1
+  MOV R2, #51                 @length of print string
+  LDR R1, =prompt_statement   @string at prompt_statement  
+  SWI 0                       @execute syscall    
+  MOV PC, LR                  @return  
+
 
   
 @_scanf procedure is procedure which takes user input and store at R0
@@ -32,7 +44,7 @@ _scanf:
   ADD SP, SP, #4              @restore the stack pointer
   POP {PC}                    @return
   
-@printf_result procedure prints string at printf_statement 
+@_printf procedure prints string at printf_statement 
 _printf:
   MOV R4, LR                  @store LR since printf call overwrites
   LDR R0, =printf_statement   @R0 contains address of printf_statement  
@@ -171,6 +183,6 @@ _reg_dump:
 debug_str:              .asciz "R%-2d   0x%08X  %011d \n"
 operation_type:         .asciz    " "
 scanf_statement:        .asciz    "%d"
-prompt_str:             .ascii    "Please insert a number and press Enter:"
-printf_statement:       .asciz    "The final result is: %d\n"
+prompt_str:             .ascii    "Please insert an integer and press Enter:"
+printf_statement:       .asciz    "The result of the operation is: %d\n"
 printf_operator:        .asciz    "Insert the type of operation '+' for addition, '-' for subtraction, '*' for multiplication, 'M' for Maximum:"
