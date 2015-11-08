@@ -199,7 +199,7 @@ debug_str:			.asciz 	    "R%-2d   0x%08X  %011d \n"
 printf_Prompt: 		.asciz "Please enter an integer: "
 Input_Value: 			.asciz "%d"
 scanf_Prompt		.asciz "Please enter one of the operation code from (+,-,*,M): "
-Input_Operator: 		.asciz "%s"
+Input_Operator: 		.asciz "%d"
 Printf_Output: 			.asciz "The output based on the entered operation code is : %d\n"
     
 
