@@ -23,7 +23,8 @@ main:
   MOV R2, R8                  @move value to argument register R2    
   
   BL compare_operator         @branch to compare_operator with return              
-  MOV R1, R0                  @move return value R0 to argument register R1      
+  MOV R1, R0                  @move return value R0 to argument register R1
+  BL _reg_dump
   BL printf_result            @branch to printf_result with return
   B main                      @branch to main procedure for loop
 
@@ -96,7 +97,7 @@ prompt_operator:
   LDR R1, =printf_operator    @string at label printf_operator          
   SWI 0                       @execute syscall        
   MOV PC, LR                  @return                        
-    
+  
 @compare_operator procedure compares the user input character and perfroms the operation    
 compare_operator:
   CMP R3, #'+'                @compare the user input with '+'   
@@ -108,11 +109,131 @@ compare_operator:
   CMP R3, #'M'                @compare the user input with 'M'      
   BEQ compare_max             @branch to equal handler, compare_max 
   BNE main                    @brach to not equal handler, main procedure
-  MOV PC, R4                  @return            
+  MOV PC, R4                  @return 
+  
+  _reg_dump:
+    PUSH {LR}           @ backup registers
+    PUSH {R0}           @ backup registers
+    PUSH {R1}           @ backup registers
+    PUSH {R2}           @ backup registers
+    PUSH {R3}           @ backup registers
+    
+    PUSH {R14}          @ push registers for printing
+    PUSH {R13}          @ push registers for printing
+    PUSH {R12}          @ push registers for printing
+    PUSH {R11}          @ push registers for printing
+    PUSH {R10}          @ push registers for printing
+    PUSH {R9}           @ push registers for printing
+    PUSH {R8}           @ push registers for printing
+    PUSH {R7}           @ push registers for printing
+    PUSH {R6}           @ push registers for printing
+    PUSH {R5}           @ push registers for printing
+    PUSH {R4}           @ push registers for printing
+    PUSH {R3}           @ push registers for printing
+    PUSH {R2}           @ push registers for printing
+    PUSH {R1}           @ push registers for printing
+    PUSH {R0}           @ push registers for printing
+	
+    LDR R0,=debug_str   @ prepare register print
+    MOV R1, #0          @ prepare R0 print
+    POP {R2}            @ prepare R0 print
+    MOV R3, R2          @ prepare R0 print
+    BL printf           @ print R0 value prior to reg_dump call
+
+    LDR R0,=debug_str   @ prepare register print
+    MOV R1, #1          @ prepare R1 print
+    POP {R2}            @ prepare R1 print
+    MOV R3, R2          @ prepare R1 print
+    BL printf           @ print R1 value prior to reg_dump call
+
+    LDR R0,=debug_str   @ prepare register print
+    MOV R1, #2          @ prepare R2 print
+    POP {R2}            @ prepare R2 print
+    MOV R3, R2          @ prepare R2 print
+    BL printf           @ print R2 value prior to reg_dump call
+ 
+    LDR R0,=debug_str   @ prepare register print
+    MOV R1, #3          @ prepare R3 print
+    POP {R2}            @ prepare R3 print
+    MOV R3, R2          @ prepare R3 print
+    BL printf           @ print R3 value prior to reg_dump call
+
+    LDR R0,=debug_str   @ prepare register print
+    MOV R1, #4          @ prepare R4 print
+    POP {R2}            @ prepare R4 print
+    MOV R3, R2          @ prepare R4 print
+    BL printf           @ print R4 value prior to reg_dump call
+
+    LDR R0,=debug_str   @ prepare register print
+    MOV R1, #5          @ prepare R5 print
+    POP {R2}            @ prepare R5 print
+    MOV R3, R2          @ prepare R5 print
+    BL printf           @ print R5 value prior to reg_dump call
+
+    LDR R0,=debug_str   @ prepare register print
+    MOV R1, #6          @ prepare R6 print
+    POP {R2}            @ prepare R6 print
+    MOV R3, R2          @ prepare R6 print
+    BL printf           @ print R6 value prior to reg_dump call
+ 
+    LDR R0,=debug_str   @ prepare register print
+    MOV R1, #7          @ prepare R7 print
+    POP {R2}            @ prepare R7 print
+    MOV R3, R2          @ prepare R7 print
+    BL printf           @ print R7 value prior to reg_dump call
+
+    LDR R0,=debug_str   @ prepare register print
+    MOV R1, #8          @ prepare R8 print
+    POP {R2}            @ prepare R8 print
+    MOV R3, R2          @ prepare R8 print
+    BL printf           @ print R8 value prior to reg_dump call
+
+    LDR R0,=debug_str   @ prepare register print
+    MOV R1, #9          @ prepare R9 print
+    POP {R2}            @ prepare R9 print
+    MOV R3, R2          @ prepare R9 print
+    BL printf           @ print R9 value prior to reg_dump call
+    
+    LDR R0,=debug_str   @ prepare register print
+    MOV R1, #10          @ prepare R10 print
+    POP {R2}            @ prepare R10 print
+    MOV R3, R2          @ prepare R10 print
+    BL printf           @ print R10 value prior to reg_dump call
+    
+    LDR R0,=debug_str   @ prepare register print
+    MOV R1, #11         @ prepare R11 print
+    POP {R2}            @ prepare R11 print
+    MOV R3, R2          @ prepare R11 print
+    BL printf           @ print R11 value prior to reg_dump call
+    
+    LDR R0,=debug_str   @ prepare register print
+    MOV R1, #12         @ prepare R12 print
+    POP {R2}            @ prepare R12 print
+    MOV R3, R2          @ prepare R12 print
+    BL printf           @ print R12 value prior to reg_dump call
+
+    LDR R0,=debug_str   @ prepare register print
+    MOV R1, #13         @ prepare R13 print
+    POP {R2}            @ prepare R13 print
+    MOV R3, R2          @ prepare R13 print
+    BL printf           @ print R13 value prior to reg_dump call
+
+    LDR R0,=debug_str   @ prepare register print
+    MOV R1, #14         @ prepare R14 print
+    POP {R2}            @ prepare R14 print
+    MOV R3, R2          @ prepare R14 print
+    BL printf           @ print R14 value prior to reg_dump call
+    
+    POP {R3}            @ restore register
+    POP {R2}            @ restore register
+    POP {R1}            @ restore register
+    POP {R0}            @ restore regsiter
+    POP {PC}            @ return
   
 .data
+debug_str:	.asciz 	    "R%-2d   0x%08X  %011d \n"
 operation_type:         .asciz    " "
-scanf_statement:        .asciz    "%d"
 prompt_statement:       .ascii    "Please enter a number and press Enter:"
+scanf_statement:        .asciz    "%d"
+printf_operator:        .asciz    "Enter the type of operation {'+', '-' , '*' , 'M'} :"
 printf_statement:       .asciz    "The final result is: %d\n"
-printf_operator:        .asciz    "Insert the type of operation '+' for addition, '-' for subtraction, '*' for multiplication, 'M' for Maximum:"
