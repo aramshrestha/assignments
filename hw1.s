@@ -1,3 +1,9 @@
+/*****************************************************************************
+*   @FILE p1_1001125790.s
+*   This programme acts as simple calculator in assembly language.
+*   Created by Ram Shrestha on 11/7/15.
+*******************************************************************************/
+
 .global main
 .func main
 
@@ -97,15 +103,16 @@ _prompt_operator:
 @_compare procedure compares the user input character and perfroms the operation    
 _compare:
   CMP R3, #'+'                    @compare the user input with '+'   
-  BEQ _ADD                        @branch to equal handler, add_operation      
+  BEQ _SUM                        @branch to equal handler, add_operation
   CMP R3, #'-'                    @compare the user input with '-'        
   BEQ _DIFFERENCE                 @branch to equal handler, subtraction_operation      
   CMP R3, #'*'                    @compare the user input with '*'           
   BEQ _PRODUCT                    @branch to equal handler, multiplication_operation       
   CMP R3, #'M'                    @compare the user input with 'M'      
-  BEQ _MAX                        @branch to equal handler, compare_max 
-  BNE main                        @brach to not equal handler, main procedure
+  BEQ _MAX                        @branch to equal handler, compare_max
   MOV PC, R4                      @return 
+
+
 _reg_dump:
   PUSH {LR}                       @ backup registers
   PUSH {R0}                       @ backup registers
@@ -178,11 +185,18 @@ _reg_dump:
 	  POP {R2}            @ prepare R8 print
 	  MOV R3, R2          @ prepare R8 print
 	  BL printf           @ print R8 value prior to reg_dump call
+
+      POP {R3}            @ restore register
+      POP {R2}            @ restore register
+      POP {R1}            @ restore register
+      POP {R0}            @ restore regsiter
+      POP {PC}            @ return
 	  
 .data
 debug_str:              .asciz "R%-2d   0x%08X  %011d \n"
 operation_type:         .asciz    " "
+prompt_statement:       .ascii    "Please insert an integer and press Enter:"
 scanf_statement:        .asciz    "%d"
-prompt_statement:             .ascii    "Please insert an integer and press Enter:"
-printf_statement:       .asciz    "The result of the operation is: %d\n"
 printf_operator:        .asciz    "Insert the type of operation '+' for addition, '-' for subtraction, '*' for multiplication, 'M' for Maximum:"
+printf_statement:       .asciz    "The result of the operation is: %d\n"
+
