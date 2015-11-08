@@ -38,7 +38,7 @@ _printf:
 _scanf:
     MOV R4, LR                          @ store LR since printf call overwrites
     SUB SP, SP, #4                      @ make room for stack
-    LDR R0, =scanf_Promp		@ R0 contains formatted string address
+    LDR R0, =scanf_Prompt		@ R0 contains formatted string address
     BL printf                           @ call printf
     LDR R0, =Input_Operator             @ R0 contains formatted string address
     MOV R1, SP                          @ move SP to R1 to store entry of stack
