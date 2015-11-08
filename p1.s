@@ -237,6 +237,5 @@ debug_str:	.asciz 	    "R%-2d   0x%08X  %011d \n"
 operation_type:         .asciz    ""
 scanf_statement:        .asciz    "%d"
 prompt_statement:       .ascii    "Please enter a number and press Enter: "
-printf_statement:       .asciz    "The final result is: %d\n"
 printf_operator:        .asciz    "Enter the type of operation {'+', '-' , '*' , 'M'} :"
-
+printf_statement:       .asciz    "The final result is: %d\n"
