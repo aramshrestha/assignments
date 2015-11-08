@@ -26,7 +26,6 @@ main:
   
   BL compare_operator         @branch to compare_operator with return
   MOV R1, R0
-  MOV R9, R1
   MOV R1, R6
   BL _reg_dump
   BL printf_result            @branch to printf_result with return
@@ -238,5 +237,6 @@ debug_str:	.asciz 	    "R%-2d   0x%08X  %011d \n"
 operation_type:         .asciz    ""
 scanf_statement:        .asciz    "%d"
 prompt_statement:       .ascii    "Please enter a number and press Enter: "
-printf_operator:        .asciz    "Enter the type of operation {'+', '-' , '*' , 'M'} :"
 printf_statement:       .asciz    "The final result is: %d\n"
+printf_operator:        .asciz    "Enter the type of operation {'+', '-' , '*' , 'M'} :"
+
