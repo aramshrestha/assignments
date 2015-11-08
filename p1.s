@@ -26,7 +26,7 @@ main:
   
   BL compare_operator         @branch to compare_operator with return
   MOV R1, R0
-  MOV R1, R6
+
   BL _reg_dump
   BL printf_result            @branch to printf_result with return
   B main                      @branch to main procedure for loop
