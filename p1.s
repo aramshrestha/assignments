@@ -24,10 +24,7 @@ main:
   MOV R1, R6                  @move value to argument register R1  
   MOV R2, R8                  @move value to argument register R2    
   
-  BL compare_operator         @branch to compare_operator with return              
-  MOV R1, R0                  @move return value R0 to argument register R1
-  MOV R1, R8
-
+  BL compare_operator         @branch to compare_operator with return
   BL _reg_dump
   BL printf_result            @branch to printf_result with return
   B main                      @branch to main procedure for loop
@@ -236,8 +233,8 @@ compare_operator:
   
 .data
 debug_str:	.asciz 	    "R%-2d   0x%08X  %011d \n"
-operation_type:         .asciz    " "
-prompt_statement:       .ascii    "Please enter a number and press Enter:"
+operation_type:         .asciz    ""
+prompt_statement:       .ascii    "Please enter a number and press Enter: "
 scanf_statement:        .asciz    "%d"
-printf_operator:        .asciz    "Enter the type of operation {'+', '-' , '*' , 'M'} :"
+printf_operator:        .asciz    "Enter the type of operation {'+', '-' , '*' , 'M'} : "
 printf_statement:       .asciz    "The final result is: %d\n"
