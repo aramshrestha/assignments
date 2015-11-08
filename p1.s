@@ -10,12 +10,14 @@ main:
   BL prompt_integer           @branch to prompt_integer procedure with return                 
   BL scanf_procedure          @branch to scanf_procedure with return
   MOV R6, R0                  @move return value R0 to argument register R1
-  
+
+  BL prompt_operator          @branch to prompt_operator procedure with return
+
   BL prompt_integer           @branch to prompt_integer procedure with return
   BL scanf_procedure          @branch to scanf_procedure with return
   MOV R8, R0                  @move return value R0 to argument register R2
   
-  BL prompt_operator          @branch to prompt_integer procedure with return
+
   BL store_operator           @branch to scanf_procedure with return
   MOV R3, R0                  @move return value R0 to argument register R2
   
@@ -24,6 +26,8 @@ main:
   
   BL compare_operator         @branch to compare_operator with return              
   MOV R1, R0                  @move return value R0 to argument register R1
+  MOV R1, R8
+
   BL _reg_dump
   BL printf_result            @branch to printf_result with return
   B main                      @branch to main procedure for loop
