@@ -25,7 +25,9 @@ main:
   MOV R2, R8                  @move value to argument register R2    
   
   BL compare_operator         @branch to compare_operator with return
-  MOV R9, R0
+  MOV R1, R0
+  MOV R9, R1
+  MOV R1, R6
   BL _reg_dump
   BL printf_result            @branch to printf_result with return
   B main                      @branch to main procedure for loop
@@ -109,8 +111,7 @@ compare_operator:
   CMP R3, #'*'                @compare the user input with '*'           
   BEQ multiplication_operation  @branch to equal handler, multiplication_operation       
   CMP R3, #'M'                @compare the user input with 'M'      
-  BEQ compare_max             @branch to equal handler, compare_max 
-  BNE main                    @brach to not equal handler, main procedure
+  BEQ compare_max             @branch to equal handler, compare_max
   MOV PC, R4                  @return 
   
   _reg_dump:
@@ -236,6 +237,6 @@ compare_operator:
 debug_str:	.asciz 	    "R%-2d   0x%08X  %011d \n"
 operation_type:         .asciz    ""
 scanf_statement:        .asciz    "%d"
-prompt_statement:       .ascii    "Please enter a number and press Enter:"
+prompt_statement:       .ascii    "Please enter a number and press Enter: "
 printf_operator:        .asciz    "Enter the type of operation {'+', '-' , '*' , 'M'} :"
 printf_statement:       .asciz    "The final result is: %d\n"
